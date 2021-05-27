@@ -1,0 +1,85 @@
+{
+  "name": "express-ws",
+  "version": "1.2.0",
+  "description": "tdd with express",
+  "main": "app.js",
+  "scripts": {
+    "start:dev": "cross-env NODE_ENV=development npm run migrate && cross-env NODE_ENV=development nodemon index",
+    "start": "cross-env NODE_ENV=production npm run migrate && cross-env NODE_ENV=production node index",
+    "test": "cross-env NODE_ENV=test jest --watch && cross-env NODE_ENV=test npm run clean-up",
+    "test:staging": "cross-env NODE_ENV=staging npm run migrate && cross-env NODE_ENV=staging jest -f . --runInBand --forceExit && cross-env NODE_ENV=staging npm run clean-up",
+    "clean-up": "node test-cleanup",
+    "lint": "eslint .",
+    "migrate": "sequelize-cli db:migrate"
+  },
+  "author": "Basar Buyukkahraman",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "config": "^3.3.1",
+    "express": "^4.17.1",
+    "express-validator": "^6.6.1",
+    "file-type": "^14.7.1",
+    "i18next": "^19.6.3",
+    "i18next-fs-backend": "^1.0.7",
+    "i18next-http-middleware": "^3.0.2",
+    "multer": "^1.4.2",
+    "nodemailer": "^6.4.11",
+    "pg": "^8.3.0",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^6.3.4",
+    "sequelize-cli": "^6.2.0",
+    "sqlite3": "^5.0.0",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.2",
+    "eslint": "^7.6.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "jest": "^26.4.0",
+    "jest-watch-typeahead": "^0.6.0",
+    "nodemon": "^2.0.4",
+    "prettier": "^2.0.5",
+    "smtp-server": "^3.7.0",
+    "supertest": "^4.0.2"
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "ecmaVersion": 2018
+    },
+    "extends": [
+      "eslint:recommended",
+      "plugin:prettier/recommended"
+    ],
+    "plugins": [
+      "prettier"
+    ],
+    "env": {
+      "node": true,
+      "es6": true,
+      "jest": true
+    },
+    "rules": {
+      "eqeqeq": "warn",
+      "prettier/prettier": "warn"
+    }
+  },
+  "prettier": {
+    "singleQuote": true,
+    "printWidth": 120
+  },
+  "jest": {
+    "watchPlugins": [
+      "jest-watch-typeahead/filename",
+      "jest-watch-typeahead/testname"
+    ],
+    "testPathIgnorePatterns": [
+      "<rootDir>/node_modules/",
+      "<rootDir>/config/"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/test-setup.js"
+    ]
+  }
+}
